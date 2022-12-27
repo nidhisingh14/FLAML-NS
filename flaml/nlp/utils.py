@@ -3,6 +3,7 @@ import numpy as np
 
 from ..data import (
     SUMMARIZATION,
+    MACHINE_TRANSLATION,
     SEQREGRESSION,
     SEQCLASSIFICATION,
     MULTICHOICECLASSIFICATION,
@@ -19,6 +20,8 @@ def load_default_huggingface_metric_for_task(task):
         return "r2"
     elif task == SUMMARIZATION:
         return "rouge1"
+    elif task == MACHINE_TRANSLATION:
+        return "sacrebleu"
     elif task == MULTICHOICECLASSIFICATION:
         return "accuracy"
     elif task == TOKENCLASSIFICATION:

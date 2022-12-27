@@ -4,6 +4,7 @@ import numpy as np
 
 from ...data import (
     SUMMARIZATION,
+    MACHINE_TRANSLATION,
     SEQREGRESSION,
     SEQCLASSIFICATION,
     MULTICHOICECLASSIFICATION,
@@ -203,7 +204,7 @@ def tokenize_onedataframe(
         _, tokenized_column_names = tokenize_row(
             dict(X.iloc[0]),
             tokenizer,
-            prefix=(prefix_str,) if task is SUMMARIZATION else None,
+            prefix=(prefix_str,) if task is SUMMARIZATION or task is MACHINE_TRANSLATION else None,
             task=task,
             hf_args=hf_args,
             return_column_name=True,
@@ -212,7 +213,7 @@ def tokenize_onedataframe(
             lambda x: tokenize_row(
                 x,
                 tokenizer,
-                prefix=(prefix_str,) if task is SUMMARIZATION else None,
+                prefix=(prefix_str,) if task is SUMMARIZATION or task is MACHINE_TRANSLATION else None,
                 task=task,
                 hf_args=hf_args,
             ),
@@ -367,6 +368,23 @@ def postprocess_prediction_and_true(
             decoded_y_true_labels = [
                 "\n".join(nltk.sent_tokenize(label)) for label in decoded_y_true_labels
             ]
+        else:
+            decoded_y_true_labels = None
+
+        return decoded_preds, decoded_y_true_labels
+    elif task == MACHINE_TRANSLATION:
+        if isinstance(y_pred, tuple):
+            y_pred = np.argmax(y_pred[0], axis=2)
+        decoded_preds = tokenizer.batch_decode(y_pred, skip_special_tokens=True)
+
+        decoded_preds = [pred.strip() for pred in decoded_preds]
+
+        if y_true is not None:
+            y_true_labels = np.where(y_true != -100, y_true, tokenizer.pad_token_id)
+            decoded_y_true_labels = tokenizer.batch_decode(
+                y_true_labels, skip_special_tokens=True
+            )
+            decoded_y_true_labels = [label.strip() for label in decoded_y_true_labels]
         else:
             decoded_y_true_labels = None
 

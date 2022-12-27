@@ -30,6 +30,7 @@ from .data import (
     SEQREGRESSION,
     TOKENCLASSIFICATION,
     SUMMARIZATION,
+    MACHINE_TRANSLATION,
     NLG_TASKS,
     MULTICHOICECLASSIFICATION,
 )
@@ -584,7 +585,7 @@ class TransformersEstimator(BaseEstimator):
     def tokenizer(self):
         from transformers import AutoTokenizer
 
-        if self._task == SUMMARIZATION:
+        if self._task == SUMMARIZATION or self._task == MACHINE_TRANSLATION:
             return AutoTokenizer.from_pretrained(
                 pretrained_model_name_or_path=self._training_args.model_path,
                 cache_dir=None,

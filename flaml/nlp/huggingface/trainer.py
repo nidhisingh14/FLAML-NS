@@ -20,8 +20,8 @@ class TrainerForAuto(Seq2SeqTrainer):
                 test_dataset,
                 ignore_keys,
                 metric_key_prefix,
-                max_length,
-                num_beams,
+                max_length = max_length,
+                num_beams = num_beams,
             )
         else:
             return super(Seq2SeqTrainer, self).predict(

@@ -1,6 +1,46 @@
 import pandas as pd
 
+def get_toy_data_machine_translation():
+    train_dataset = pd.DataFrame(
+    [
+        ('Resumption of the session', 'Wiederaufnahme der Sitzungsperiode'),
+        ('I declare resumed the session of the European Parliament adjourned on Friday 17 December 1999, and I would like once again to wish you a happy new year in the hope that you enjoyed a pleasant festive period.', 'Ich erkl\u00e4re die am Freitag, dem 17. Dezember unterbrochene Sitzungsperiode des Europ\u00e4ischen Parlaments f\u00fcr wiederaufgenommen, w\u00fcnsche Ihnen nochmals alles Gute zum Jahreswechsel und hoffe, da\u00df Sie sch\u00f6ne Ferien hatten.'),
+        ("You have requested a debate on this subject in the course of the next few days, during this part-session.", 'Wie Sie feststellen konnten, ist der gef\u00fcrchtete \"Millenium-Bug \" nicht eingetreten. Doch sind B\u00fcrger einiger unserer Mitgliedstaaten Opfer von schrecklichen Naturkatastrophen geworden.'),
+        ("Although, as you will have seen, the dreaded 'millennium bug' failed to materialise, still the people in a number of countries suffered a series of natural disasters that truly were dreadful.", 'Im Parlament besteht der Wunsch nach einer Aussprache im Verlauf dieser Sitzungsperiode in den n\u00e4chsten Tagen.'),
+    ]
+    )
+    dev_dataset = pd.DataFrame(
+        [
+            ('Resumption of the session', 'Wiederaufnahme der Sitzungsperiode'),
+            ('I declare resumed the session of the European Parliament adjourned on Friday 17 December 1999, and I would like once again to wish you a happy new year in the hope that you enjoyed a pleasant festive period.', 'Ich erkl\u00e4re die am Freitag, dem 17. Dezember unterbrochene Sitzungsperiode des Europ\u00e4ischen Parlaments f\u00fcr wiederaufgenommen, w\u00fcnsche Ihnen nochmals alles Gute zum Jahreswechsel und hoffe, da\u00df Sie sch\u00f6ne Ferien hatten.'),
+            ("You have requested a debate on this subject in the course of the next few days, during this part-session.", 'Wie Sie feststellen konnten, ist der gef\u00fcrchtete \"Millenium-Bug \" nicht eingetreten. Doch sind B\u00fcrger einiger unserer Mitgliedstaaten Opfer von schrecklichen Naturkatastrophen geworden.'),
+            ("Although, as you will have seen, the dreaded 'millennium bug' failed to materialise, still the people in a number of countries suffered a series of natural disasters that truly were dreadful.", 'Im Parlament besteht der Wunsch nach einer Aussprache im Verlauf dieser Sitzungsperiode in den n\u00e4chsten Tagen.'),
+        ]
+    )
+    test_dataset = pd.DataFrame(
+        [
+            ('Resumption of the session', 'Wiederaufnahme der Sitzungsperiode'),
+            ('I declare resumed the session of the European Parliament adjourned on Friday 17 December 1999, and I would like once again to wish you a happy new year in the hope that you enjoyed a pleasant festive period.', 'Ich erkl\u00e4re die am Freitag, dem 17. Dezember unterbrochene Sitzungsperiode des Europ\u00e4ischen Parlaments f\u00fcr wiederaufgenommen, w\u00fcnsche Ihnen nochmals alles Gute zum Jahreswechsel und hoffe, da\u00df Sie sch\u00f6ne Ferien hatten.'),
+            ("You have requested a debate on this subject in the course of the next few days, during this part-session.", 'Wie Sie feststellen konnten, ist der gef\u00fcrchtete \"Millenium-Bug \" nicht eingetreten. Doch sind B\u00fcrger einiger unserer Mitgliedstaaten Opfer von schrecklichen Naturkatastrophen geworden.'),
+            ("Although, as you will have seen, the dreaded 'millennium bug' failed to materialise, still the people in a number of countries suffered a series of natural disasters that truly were dreadful.", 'Im Parlament besteht der Wunsch nach einer Aussprache im Verlauf dieser Sitzungsperiode in den n\u00e4chsten Tagen.'),
+        ]
+    )
 
+    for each_dataset in [train_dataset, dev_dataset, test_dataset]:
+        each_dataset.columns = ["document", "summary"]
+
+    custom_sent_keys = ["summary"]
+    label_key = "document"
+
+    X_train = train_dataset[custom_sent_keys]
+    y_train = train_dataset[label_key]
+
+    X_val = dev_dataset[custom_sent_keys]
+    y_val = dev_dataset[label_key]
+
+    X_test = test_dataset[custom_sent_keys]
+    return X_train, y_train, X_val, y_val, X_test
+    
 def get_toy_data_seqclassification():
     train_data = {
         "sentence1": [

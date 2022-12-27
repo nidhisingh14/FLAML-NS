@@ -532,7 +532,7 @@ class AutoML(BaseEstimator):
         ```
             task: A string of the task type, e.g.,
                 'classification', 'regression', 'ts_forecast', 'rank',
-                'seq-classification', 'seq-regression', 'summarization'.
+                'seq-classification', 'seq-regression', 'summarization', 'machine-translation'.
             n_jobs: An integer of the number of threads for training | default=-1.
                 Use all available resources when n_jobs == -1.
             log_file_name: A string of the log file name | default="". To disable logging,
@@ -1571,7 +1571,7 @@ class AutoML(BaseEstimator):
             time_budget: A float number of the time budget in seconds.
             task: A string of the task type, e.g.,
                 'classification', 'regression', 'ts_forecast', 'rank',
-                'seq-classification', 'seq-regression', 'summarization'.
+                'seq-classification', 'seq-regression', 'summarization', 'machine-translation'.
             eval_method: A string of resampling strategy, one of
                 ['auto', 'cv', 'holdout'].
             split_ratio: A float of the validation data percentage for holdout.
@@ -2137,7 +2137,7 @@ class AutoML(BaseEstimator):
             task: A string of the task type, e.g.,
                 'classification', 'regression', 'ts_forecast_regression',
                 'ts_forecast_classification', 'rank', 'seq-classification',
-                'seq-regression', 'summarization'.
+                'seq-regression', 'summarization', 'machine-translation'.
             n_jobs: An integer of the number of threads for training | default=-1.
                 Use all available resources when n_jobs == -1.
             log_file_name: A string of the log file name | default="". To disable logging,

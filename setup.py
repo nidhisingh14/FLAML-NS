@@ -63,6 +63,7 @@ setuptools.setup(
             "datasets",
             "nltk",
             "rouge_score",
+            "sacrebleu",
             "hcrystalball==0.1.10",
             "seqeval",
         ],
@@ -85,6 +86,7 @@ setuptools.setup(
             "datasets",
             "nltk",
             "rouge_score",
+            "sacrebleu",
             "seqeval",
         ],
         "ts_forecast": [

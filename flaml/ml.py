@@ -189,6 +189,12 @@ def metric_loss_score(
                     score = metric.compute(
                         predictions=y_processed_predict, references=y_processed_true
                     )[metric_name].mid.fmeasure
+
+                if "sacrebleu" in metric_name:
+                    score = metric.compute(
+                        predictions=[y_processed_predict], references=[y_processed_true]
+                    )['score']
+
                 elif metric_name.startswith("seqeval"):
 
                     y_processed_true = [
